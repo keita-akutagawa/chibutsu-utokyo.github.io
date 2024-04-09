@@ -1,16 +1,18 @@
 # 課題
 <span style="color: red; ">
-課題１と２は、Codespaceで行ってはいけません。  
+課題１と２は、Codespaceで行ってはいけません。情報漏洩のリスクがあります。  
 間違えてやってしまった場合は、早急にTAに連絡してください。
 </span>
 
-## 課題１（当日のみUTokyo-VPN不要）
+## 課題１（UTokyo-VPN不要）
 559のサーバーであるwww-geoph.eps.s.u-tokyo.ac.jpにSSHでログインしてください。  
-そのあと、www-geophにある/home/akutagawa2024/kadai.txtをscpコマンドを用いて自分のノートPCに転送してください。
+そのあと、www-geophにある/home/akutagawa2024/kadai.txtをscpコマンドを用いて自分のノートPCに転送してください。  
+※2~3日後にはUTokyo-VPN経由でのみアクセス可能な状態に戻します。
 
 ## 課題２（UTokyo-VPN必要）
 559のサーバーであるdover.eps.s.u-tokyo.ac.jpにSSHでログインしてください。  
 そのあと、課題１で手元に持ってきたkadai.txtに対する答えを、doverの/home/akutagawa2024/kadaiディレクトリに送ってください。
+
 
 ## おまけ課題（Codespace可）
 簡単なサイバー攻撃をしてみましょう。  
