@@ -4,15 +4,12 @@
 間違えてやってしまった場合は、早急にTAに連絡してください。
 </span>
 
-## 課題１（UTokyo-VPN不要）
-559のサーバーであるwww-geoph.eps.s.u-tokyo.ac.jpにSSHでログインしてください。  
-そのあと、www-geophにある/home/akutagawa2024/kadai.txtをscpコマンドを用いて自分のノートPCに転送してください。  
-※2~3日後にはUTokyo-VPN経由でのみアクセス可能な状態に戻します。
 
-## 課題２（UTokyo-VPN必要）
+## 課題１（当日のみUTokyo-VPN不要）
 559のサーバーであるdover.eps.s.u-tokyo.ac.jpにSSHでログインしてください。  
-そのあと、課題１で手元に持ってきたkadai.txtに対する答えを、doverの/home/akutagawa2024/kadaiディレクトリに送ってください。  
-ファイルの名前は、(アカウント名).txtでお願いします。
+次に、課題１で手元に持ってきたkadai.txtに対する答えを、doverの/home0/akutagawa2024/submitディレクトリに送ってください。  
+ファイルの名前は、(アカウント名).txtでお願いします。  
+※3日後にはUTokyo-VPN経由でのみアクセス可能な設定に戻します。
 
 
 ## おまけ課題：パスワード認証SSHサーバーに対する攻撃

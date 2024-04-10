@@ -13,31 +13,37 @@ SSH(Secure SHell)とは、ネットワークを用いてサーバーに遠隔ロ
 
 ## SSHしてみよう
 まずはSSHを使うための環境を整えましょう。
-コマンドプロンプト・Powershell・ターミナルいずれかで"ssh"と入力してください。
-使い方が出てきたらOKです。Command Not Foundみたいなのが出てきたら別途SSHをインストールする必要があります。インストールできなさそうな場合はTAにご相談ください。
+コマンドプロンプト・Powershell・ターミナルいずれかで`ssh`と入力してください。
+使い方が出てきたらOKです。`Command Not Found`みたいなのが出てきたら別途SSHをインストールする必要があります。インストールできなさそうな場合はTAにご相談ください。
 
-ではSSHで559のwww-geophサーバーにログインしてみましょう。
+ではSSHで559のdoverサーバーにログインしてみましょう。「dover」はコンピュータ用語ではなく、かつての管理者が今回扱うサーバーにつけた名前です。  
+
+***
+接続の前にVPNへの接続が必要です。  
+UTokyo-VPNの設定をしていない方は[VPNのページ](VPN.md)を参照して、設定してください。
+***
+
 以下のコマンドを入力してください。s123456は自身のアカウント名に変えてください。
 ```
-$ ssh s123456@www-geoph.eps.s.u-tokyo.ac.jp
+$ ssh s123456@dover.eps.s.u-tokyo.ac.jp
 ```
-「Are you sure you want to continue connecting (yes/no)?」と聞かれたら「yes」と答えてください。  
+`Are you sure you want to continue connecting (yes/no)?`と聞かれたら`yes`と答えてください。  
 上手くいけばパスワードを聞かれるので、メールで送られてきたパスワードを入力してください。  
 パスワードを入力する際、入力した文字が画面に表示されないと思いますが、問題ありません。これはショルダーハッキングと呼ばれる攻撃に対抗する仕組みです。
 
 ログインが成功すると、以下のような画面になると思います。
 ```
 # s123456は自身のアカウント名になります。
-s123456@www-geoph:~$
+s123456@dover:~$
 ```
 いろんなディレクトリやファイルを見て、このサーバー内を探検してみてください。
-www-geophには、Debianと呼ばれるLinuxディストリビューションが入っています。特にWindowsとは雰囲気がかなり異なっていると思います。  
+doverには、Debianと呼ばれるLinuxディストリビューションが入っています。特にWindowsとは雰囲気がかなり異なっていると思います。  
 探検が終わったらホームディレクトリに戻りましょう。その後、適当にファイルを作ってください。後で使用します。
 ```
 $ cd
 $ echo "後で使うテキストファイル" > sample1.txt
 ```
-終わったら「exit」でログアウトしましょう。
+終わったら`exit`でログアウトしましょう。
 
 
 ## SCPとは
@@ -59,7 +65,7 @@ $ scp 送りたいファイルの場所 ユーザー名@リモートサーバー
 ```
 # s123456は自身のアカウント名に変えること
 # ファイルを置く場所はカレントディレクトリを示す「.」にしているので、見逃さないように
-$ scp s123456@www-geoph.eps.s.u-tokyo.ac.jp:~/sample1.txt .
+$ scp s123456@dover.eps.s.u-tokyo.ac.jp:~/sample1.txt .
 ```
 ファイルが送られてきたことを確認してください。
 
@@ -68,25 +74,25 @@ $ scp s123456@www-geoph.eps.s.u-tokyo.ac.jp:~/sample1.txt .
 $ echo "送るファイル" > sample2.txt
 
 # s123456は自身のアカウント名に変えること
-$ scp sample2.txt s123456@www-geoph.eps.s.u-tokyo.ac.jp:~
+$ scp sample2.txt s123456@dover.eps.s.u-tokyo.ac.jp:~
 ```
-ちゃんと送られたかどうか、www-geophにSSHログインして確かめてみてください。
+ちゃんと送られたかどうか、doverにSSHログインして確かめてみてください。
 
 
 ## 公開鍵認証
 SSHの認証(ユーザーが本人か確かめる方法)としてパスワード認証と公開鍵認証があります。
 今のところパスワード認証を用いていますが、セキュリティ的な問題から公開鍵認証が推奨されています。可能なら公開鍵認証の設定をしましょう。SSHやSCPの際に毎回パスワードを打たなくてもよくなる、といったメリットもあります。
 
-まず「ssh-keygen」コマンドを用いて公開鍵と秘密鍵のペアを作ります。無い場合は別途対応してください。  
+まず`ssh-keygen`コマンドを用いて公開鍵と秘密鍵のペアを作ります。無い場合は別途対応してください。  
 以下はPowershellを用いて鍵を生成したときのものです。
 ```
 PS C:\Users\dareka> ssh-keygen.exe
 Generating public/private rsa key pair.
-Enter file in which to save the key (C:\Users\dareka/.ssh/id_rsa): C:\Users\dareka/.ssh/id_rsa_www-geoph # 鍵の名前は自由です。置き場所は.ssh下が良いと思います。
+Enter file in which to save the key (C:\Users\dareka/.ssh/id_rsa): C:\Users\dareka/.ssh/id_rsa_dover # 鍵の名前は自由です。置き場所は.ssh下が良いと思います。
 Enter passphrase (empty for no passphrase): # パスワードは空でも大丈夫です。
 Enter same passphrase again:
-Your identification has been saved in C:\Users\dareka/.ssh/id_rsa_www-geoph
-Your public key has been saved in C:\Users\dareka/.ssh/id_rsa_www-geoph.pub
+Your identification has been saved in C:\Users\dareka/.ssh/id_rsa_dover
+Your public key has been saved in C:\Users\dareka/.ssh/id_rsa_dover.pub
 The key fingerprint is:
 SHA256:df5KwL8V4h09b7IC865557oP11mYGnZI1TFANix2nzQ dareka@dareka
 The key's randomart image is:
@@ -102,26 +108,26 @@ The key's randomart image is:
 |          o+*B+  |
 +----[SHA256]-----+
 ```
-これで、id_rsa_www-geoph(秘密鍵)とid_rsa_www-geoph.pub(公開鍵)が生成されました。
+これで、id_rsa_dover(秘密鍵)とid_rsa_dover.pub(公開鍵)が生成されました。
 
 公開鍵の方をリモートサーバーにおけば公開鍵認証が完了します。  
-置き場所は「~/.ssh」で、名前は「authorized_keys」にする必要があります。これは、www-geophに入っているSSHを管理するソフトウェアOpenSSHが、「~/.ssh/authorized_keys」から公開鍵を読み込むようになっているためらしいです。  
+置き場所は`~/.ssh`で、名前は`authorized_keys`にする必要があります。これは、doverに入っているSSHを管理するソフトウェアOpenSSHが、`~/.ssh/authorized_keys`から公開鍵を読み込むようになっているためらしいです。  
 ```
 # 公開鍵(.pubファイル)があるディレクトリに移動
 $ cd ~/.ssh
-$ scp id_rsa_www-geoph.pub s123456@www-geoph.eps.s.u-tokyo.ac.jp:~
+$ scp id_rsa_dover.pub s123456@dover.eps.s.u-tokyo.ac.jp:~
 
-# www-geophにログインする。ここではまだパスワードが必要
-$ ssh s123456@www-geoph.eps.s.u-tokyo.ac.jp 
+# doverにログインする。ここではまだパスワードが必要
+$ ssh s123456@dover.eps.s.u-tokyo.ac.jp 
 
 # .sshディレクトリが無い場合は作成する
 $ mkdir .ssh
 
 # .sshディレクトリに先程送った公開鍵を移動させる
-$ mv id_rsa_www-geoph.pub .ssh/
+$ mv id_rsa_dover.pub .ssh/
 
 # 名前を変える
-$ mv .ssh/id_rsa_www-geoph.pub .ssh/authorized_keys
+$ mv .ssh/id_rsa_dover.pub .ssh/authorized_keys
 
 # 権限を設定する
 $ chmod 700 .ssh
@@ -131,7 +137,7 @@ $ chmod 700 .ssh
 ログインするコマンドは次のとおりです。
 ```
 # s123456は自身のアカウント名に変えること
-$ ssh -i 秘密鍵の場所 s123456@www-geoph.eps.s.u-tokyo.ac.jp
+$ ssh -i 秘密鍵の場所 s123456@dover.eps.s.u-tokyo.ac.jp
 ```
 パスワードを聞かれずにログインできるか確認してください。
 
@@ -140,7 +146,7 @@ $ ssh -i 秘密鍵の場所 s123456@www-geoph.eps.s.u-tokyo.ac.jp
 公開鍵認証によって毎回パスワードを入力しなくてもよくなりましたが、その代わりに秘密鍵の場所を指定する必要がありました。  
 ここではconfigファイルを作って、さらに簡単にSSHやSCPが使えるようにしてみます。  
 
-まず、手元のPCで「~/.ssh」に移動ます。configファイルが無い場合は新たに作成してください。
+まず、手元のPCで`~/.ssh`に移動ます。configファイルが無い場合は新たに作成してください。
 ```
 $ cd ~/.ssh
 $ touch config
@@ -149,16 +155,16 @@ $ touch config
 次にconfigに以下の内容を書き込みます。メモ帳やVSCode等のエディタを用いると楽です。
 ```
 # s123456は自身のアカウント名に変えること
-Host www-geoph
-	HostName www-geoph.eps.s.u-tokyo.ac.jp
+Host dover
+	HostName dover.eps.s.u-tokyo.ac.jp
 	User s123456
-	IdentityFile ~\.ssh\id_rsa_www-geoph
+	IdentityFile ~\.ssh\id_rsa_dover
 ```
 
 これで完了です。  
-改めてwww-geophにSSHログインします。入力するコマンドは以下になります
+改めてdoverにSSHログインします。入力するコマンドは以下になります
 ```
-$ ssh www-geoph
+$ ssh dover
 ```
 ログインできるか確認してください。
 
