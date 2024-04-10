@@ -7,6 +7,7 @@ RUN mkdir /var/run/sshd
 ENV ROOT_PASSWORD="ubuntu"
 
 RUN echo "root:${ROOT_PASSWORD}" | chpasswd
+RUN sed -i 's/#\?PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 
 ENV NOTVISIBLE "in users profile"
 RUN echo "export VISIBLE=now" >> /etc/profile
