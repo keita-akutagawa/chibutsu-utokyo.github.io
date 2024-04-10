@@ -73,7 +73,7 @@ $ scp sample2.txt s123456@www-geoph.eps.s.u-tokyo.ac.jp:~
 ちゃんと送られたかどうか、www-geophにSSHログインして確かめてみてください。
 
 
-## 認証形式
+## 公開鍵認証
 SSHの認証(ユーザーが本人か確かめる方法)としてパスワード認証と公開鍵認証があります。
 今のところパスワード認証を用いていますが、セキュリティ的な問題から公開鍵認証が推奨されています。可能なら公開鍵認証の設定をしましょう。SSHやSCPの際に毎回パスワードを打たなくてもよくなる、といったメリットもあります。
 
@@ -105,7 +105,7 @@ The key's randomart image is:
 これで、id_rsa_www-geoph(秘密鍵)とid_rsa_www-geoph.pub(公開鍵)が生成されました。
 
 公開鍵の方をリモートサーバーにおけば公開鍵認証が完了します。  
-置き場所は「~/.ssh」で、名前は「authorized_keys」にする必要があります。これはwww-geophに入っているSSHを管理するソフトウェアであり、「~/.ssh/authorized_keys」から公開鍵を読み込むようになっているためらしいです。  
+置き場所は「~/.ssh」で、名前は「authorized_keys」にする必要があります。これは、www-geophに入っているSSHを管理するソフトウェアOpenSSHが、「~/.ssh/authorized_keys」から公開鍵を読み込むようになっているためらしいです。  
 ```
 # 公開鍵(.pubファイル)があるディレクトリに移動
 $ cd ~/.ssh
@@ -134,6 +134,33 @@ $ chmod 700 .ssh
 $ ssh -i 秘密鍵の場所 s123456@www-geoph.eps.s.u-tokyo.ac.jp
 ```
 パスワードを聞かれずにログインできるか確認してください。
+
+
+## configファイル
+公開鍵認証によって毎回パスワードを入力しなくてもよくなりましたが、その代わりに秘密鍵の場所を指定する必要がありました。  
+ここではconfigファイルを作って、さらに簡単にSSHやSCPが使えるようにしてみます。  
+
+まず、手元のPCで「~/.ssh」に移動ます。configファイルが無い場合は新たに作成してください。
+```
+$ cd ~/.ssh
+$ touch config
+```
+
+次にconfigに以下の内容を書き込みます。メモ帳やVSCode等のエディタを用いると楽です。
+```
+# s123456は自身のアカウント名に変えること
+Host www-geoph
+	HostName www-geoph.eps.s.u-tokyo.ac.jp
+	User s123456
+	IdentityFile ~\.ssh\id_rsa_www-geoph
+```
+
+これで完了です。  
+改めてwww-geophにSSHログインします。入力するコマンドは以下になります
+```
+$ ssh www-geoph
+```
+ログインできるか確認してください。
 
 
 ## おわりに
