@@ -4,9 +4,9 @@ RUN apt-get update && apt-get install -y openssh-server
 
 RUN mkdir /var/run/sshd
 
-ROOT_PASSWORD = "ubuntu"
-USER_NAME = "chibutsu"
-USER_PASSWORD = "chibutsu"
+ENV ROOT_PASSWORD = "ubuntu"
+ENV USER_NAME = "chibutsu"
+ENV USER_PASSWORD = "chibutsu"
 RUN echo root:${ROOT_PASSWORD} | chpasswd
 RUN echo ${USER_NAME}:${USER_PASSWORD} | chpasswd
 
