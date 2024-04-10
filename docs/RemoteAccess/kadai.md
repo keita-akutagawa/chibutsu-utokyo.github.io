@@ -29,12 +29,16 @@
 今回は軽量コンテナであるdockerを用いることにします。  
 自分のPCにdockerをインストールするか、Codespaceを使ってください。559のMac miniにはインストールされていません。
 以下はCodespaceで行う場合の手順です。  
-まずは、`/workspaces/chibutsu-utokyo.github.io/docs/RemoteAccess`に移動して、dockerコンテナを起動します。少し時間がかかるかもしれません。
+まずは、`/workspaces/chibutsu-utokyo.github.io/docs/RemoteAccess`に移動して、docker_setup.shを実行してください。少し時間がかかるかもしれません。
 ```
 $ cd /workspaces/chibutsu-utokyo.github.io/docs/RemoteAccess
-$ docker build -t ssh_container .
-$ docker run -tid --rm -p 22222:22 ssh_container
+
+# 権限を要求された場合
+$ chmod 700 docker_setup.sh
+$ ./docker_setup.sh
 ```
+
+参考したサイト：https://qiita.com/wadahiro/items/977e4f820b4451a2e5e0
 
 
 
