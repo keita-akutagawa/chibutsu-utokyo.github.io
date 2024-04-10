@@ -6,7 +6,7 @@ RUN mkdir /var/run/sshd
 
 ENV ROOT_PASSWORD="ubuntu"
 ENV USER_NAME="chibutsu"
-ENV USER_PASSWORD="chibutsu"
+ENV USER_PASSWORD="aurora"
 
 RUN echo "root:${ROOT_PASSWORD}" | chpasswd
 RUN sed -i 's/#\?PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
