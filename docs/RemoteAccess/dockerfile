@@ -4,13 +4,19 @@ RUN apt-get update && apt-get install -y openssh-server
 
 RUN mkdir /var/run/sshd
 
-ENV ROOT_PASSWORD = "ubuntu"
-ENV USER_NAME = "chibutsu"
-ENV USER_PASSWORD = "chibutsu"
-RUN echo root:${ROOT_PASSWORD} | chpasswd
-RUN echo ${USER_NAME}:${USER_PASSWORD} | chpasswd
+ENV ROOT_PASSWORD="ubuntu"
+ENV USER_NAME="chibutsu"
+ENV USER_PASSWORD="chibutsu"
 
-# RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
+RUN echo "root:${ROOT_PASSWORD}" | chpasswd
+RUN useradd -m ${USER_NAME} && \
+    echo "${USER_NAME}:${USER_PASSWORD}" | chpasswd && \
+    usermod --shell /bin/bash ${USER_NAME}
+
+WORKDIR /home/${USER_NAME}
+
+RUN touch congrats && \
+    echo "ユーザーchibutsuの乗っ取りに成功しました！" > congrats
 
 ENV NOTVISIBLE "in users profile"
 RUN echo "export VISIBLE=now" >> /etc/profile
